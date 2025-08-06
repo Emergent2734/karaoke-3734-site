@@ -823,15 +823,13 @@ function App() {
         </div>
       )}
 
-      {/* Floating Registration Button */}
-      {showFloatingButton && (
-        <button
-          onClick={() => document.getElementById('registro').scrollIntoView({ behavior: 'smooth' })}
-          className="fixed bottom-6 right-6 bg-gold hover:bg-gold/80 text-black font-bold px-6 py-3 rounded-full shadow-lg z-40 animate-pulse hover:animate-none transition-all duration-300 hover:scale-105"
-        >
-          ¡Inscribirme!
-        </button>
-      )}
+      {/* Floating Registration Button - Always visible */}
+      <button
+        onClick={() => document.getElementById('registro').scrollIntoView({ behavior: 'smooth' })}
+        className="fixed bottom-6 right-6 bg-gold hover:bg-gold/80 text-black font-bold px-6 py-3 rounded-full shadow-lg z-40 animate-pulse hover:animate-none transition-all duration-300 hover:scale-105"
+      >
+        ¡Inscribirme!
+      </button>
 
       {/* Hero Section */}
       <section id="inicio" className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-black to-gray-900">
