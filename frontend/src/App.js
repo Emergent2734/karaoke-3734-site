@@ -729,7 +729,6 @@ function App() {
   const [brands, setBrands] = useState([]);
   const [adminToken, setAdminToken] = useState(localStorage.getItem("admin_token"));
   const [message, setMessage] = useState("");
-  const [showFloatingButton, setShowFloatingButton] = useState(true);
 
   useEffect(() => {
     fetchEvents();
