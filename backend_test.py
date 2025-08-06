@@ -268,6 +268,139 @@ class KaraokeAPITester:
         self.token = old_token
         return success
 
+    def test_statistics_endpoint(self):
+        """Test statistics endpoint - main focus of testing"""
+        print("\n🎯 TESTING STATISTICS ENDPOINT (PRIMARY FOCUS)")
+        
+        success, response = self.run_test(
+            "Get Statistics",
+            "GET",
+            "statistics",
+            200
+        )
+        
+        if not success:
+            return False
+            
+        # Verify response structure
+        required_fields = ['total_registrations', 'participating_municipalities', 'represented_sectors']
+        for field in required_fields:
+            if field not in response:
+                print(f"❌ Missing required field: {field}")
+                return False
+                
+        # Verify data types
+        if not isinstance(response['total_registrations'], int):
+            print(f"❌ total_registrations should be int, got {type(response['total_registrations'])}")
+            return False
+            
+        if not isinstance(response['participating_municipalities'], int):
+            print(f"❌ participating_municipalities should be int, got {type(response['participating_municipalities'])}")
+            return False
+            
+        if not isinstance(response['represented_sectors'], int):
+            print(f"❌ represented_sectors should be int, got {type(response['represented_sectors'])}")
+            return False
+            
+        # Verify real-time counting (should reflect registrations created in previous tests)
+        if response['total_registrations'] < 2:  # We created at least 2 registrations
+            print(f"❌ Expected at least 2 registrations, got {response['total_registrations']}")
+            return False
+            
+        if response['participating_municipalities'] < 1:  # We created registrations from Querétaro
+            print(f"❌ Expected at least 1 municipality, got {response['participating_municipalities']}")
+            return False
+            
+        if response['represented_sectors'] < 2:  # We created registrations from Educativo and Empresarial sectors
+            print(f"❌ Expected at least 2 sectors, got {response['represented_sectors']}")
+            return False
+            
+        print(f"✅ Statistics structure validated:")
+        print(f"   - Total registrations: {response['total_registrations']}")
+        print(f"   - Participating municipalities: {response['participating_municipalities']}")
+        print(f"   - Represented sectors: {response['represented_sectors']}")
+        
+        return True
+
+    def test_statistics_with_more_data(self):
+        """Test statistics with additional diverse data"""
+        if not self.created_event_id:
+            print("❌ Cannot test statistics with more data - no event created")
+            return False
+            
+        # Create registrations from different municipalities and sectors
+        test_registrations = [
+            {
+                "full_name": "María González",
+                "age": 28,
+                "municipality": "San Juan del Río",
+                "sector": "Cultural",
+                "phone": "4271234567",
+                "email": f"maria_{datetime.now().strftime('%H%M%S')}@test.com",
+                "event_id": self.created_event_id
+            },
+            {
+                "full_name": "Carlos Rodríguez",
+                "age": 35,
+                "municipality": "Tequisquiapan",
+                "sector": "Empresarial",
+                "phone": "4141234567",
+                "email": f"carlos_{datetime.now().strftime('%H%M%S')}@test.com",
+                "event_id": self.created_event_id
+            },
+            {
+                "full_name": "Ana López",
+                "age": 22,
+                "municipality": "San Juan del Río",
+                "sector": "Educativo",
+                "phone": "4271234568",
+                "email": f"ana_{datetime.now().strftime('%H%M%S')}@test.com",
+                "event_id": self.created_event_id
+            }
+        ]
+        
+        # Create the registrations
+        for i, reg_data in enumerate(test_registrations):
+            success, _ = self.run_test(
+                f"Create Test Registration {i+1}",
+                "POST",
+                "registrations",
+                200,
+                data=reg_data
+            )
+            if not success:
+                print(f"❌ Failed to create test registration {i+1}")
+                return False
+        
+        # Now test statistics again
+        success, response = self.run_test(
+            "Get Statistics (After More Data)",
+            "GET",
+            "statistics",
+            200
+        )
+        
+        if not success:
+            return False
+            
+        # Verify the counts have increased appropriately
+        print(f"✅ Updated statistics after adding diverse data:")
+        print(f"   - Total registrations: {response['total_registrations']}")
+        print(f"   - Participating municipalities: {response['participating_municipalities']}")
+        print(f"   - Represented sectors: {response['represented_sectors']}")
+        
+        # Should have at least 3 municipalities now (Querétaro, San Juan del Río, Tequisquiapan)
+        if response['participating_municipalities'] < 3:
+            print(f"❌ Expected at least 3 municipalities, got {response['participating_municipalities']}")
+            return False
+            
+        # Should have at least 3 sectors (Educativo, Empresarial, Cultural)
+        if response['represented_sectors'] < 3:
+            print(f"❌ Expected at least 3 sectors, got {response['represented_sectors']}")
+            return False
+            
+        return True
+
 def main():
     print("🚀 Starting Karaoke Sensō API Tests")
     print("=" * 50)
