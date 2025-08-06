@@ -105,6 +105,54 @@
 user_problem_statement: Phase 2 - Implement public voting system (1-5 scale), video upload functionality for participants, and admin email notifications. Features include vote control by IP+session, 50MB video limit with local storage, and Gmail SMTP integration.
 
 backend:
+  - task: "Phase 2 Database Schema Extensions"
+    implemented: true
+    working: false
+    file: "/app/karaoke-senso-php/sql/phase2_schema.sql"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Created extended schema with videos, votes, vote_sessions, and email_notifications tables including views for easier data access"
+
+  - task: "Video Upload API"
+    implemented: true
+    working: false
+    file: "/app/karaoke-senso-php/api/videos.php"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Created comprehensive video API with upload (50MB limit), approval, deletion, and public video listing endpoints. Includes file validation, local storage in /uploads/videos/, and email notifications"
+
+  - task: "Voting System API"
+    implemented: true
+    working: false
+    file: "/app/karaoke-senso-php/api/votes.php"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Created voting API with 1-5 scale (Bien to Fenomenal), IP+session duplicate control, vote eligibility checking, and comprehensive results with statistics"
+
+  - task: "Email Notification System"
+    implemented: true
+    working: false
+    file: "/app/karaoke-senso-php/config/email.php"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Created Gmail SMTP email system for new registration and video upload notifications. Includes email logging and status tracking"
+
   - task: "Statistics API endpoint"
     implemented: true
     working: true
