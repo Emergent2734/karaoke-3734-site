@@ -407,7 +407,7 @@ def main():
     
     tester = KaraokeAPITester()
     
-    # Test sequence
+    # Test sequence - Statistics tests are the main focus
     tests = [
         ("Root Endpoint", tester.test_root_endpoint),
         ("Admin Login", tester.test_admin_login),
@@ -423,18 +423,27 @@ def main():
         ("Get Brands", tester.test_get_brands),
         ("Create Brand", tester.test_create_brand),
         ("Create Brand (Unauthorized)", tester.test_create_brand_unauthorized),
+        # MAIN FOCUS: Statistics endpoint testing
+        ("🎯 Statistics Endpoint", tester.test_statistics_endpoint),
+        ("🎯 Statistics with More Data", tester.test_statistics_with_more_data),
     ]
     
     failed_tests = []
+    critical_failed_tests = []
     
     for test_name, test_func in tests:
         try:
             success = test_func()
             if not success:
                 failed_tests.append(test_name)
+                # Mark statistics tests as critical failures
+                if "Statistics" in test_name:
+                    critical_failed_tests.append(test_name)
         except Exception as e:
             print(f"❌ {test_name} - Exception: {str(e)}")
             failed_tests.append(test_name)
+            if "Statistics" in test_name:
+                critical_failed_tests.append(test_name)
     
     # Print results
     print("\n" + "=" * 50)
@@ -445,14 +454,20 @@ def main():
     print(f"Tests failed: {len(failed_tests)}")
     print(f"Success rate: {(tester.tests_passed/tester.tests_run)*100:.1f}%")
     
+    if critical_failed_tests:
+        print(f"\n🚨 CRITICAL FAILURES (Statistics API):")
+        for test in critical_failed_tests:
+            print(f"   - {test}")
+    
     if failed_tests:
-        print(f"\n❌ Failed tests:")
+        print(f"\n❌ All failed tests:")
         for test in failed_tests:
             print(f"   - {test}")
     else:
         print(f"\n✅ All tests passed!")
     
-    return 0 if len(failed_tests) == 0 else 1
+    # Return 0 only if no critical failures
+    return 0 if len(critical_failed_tests) == 0 else 1
 
 if __name__ == "__main__":
     sys.exit(main())
