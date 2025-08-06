@@ -116,6 +116,9 @@ backend:
       - working: true
         agent: "main"
         comment: "Added /api/statistics endpoint that returns real-time counts of registrations, unique municipalities, and sectors"
+      - working: true
+        agent: "testing"
+        comment: "✅ COMPREHENSIVE TESTING COMPLETED: Statistics API endpoint fully functional. Returns correct JSON structure with total_registrations, participating_municipalities, represented_sectors. Real-time counting verified - counts increased from 4 to 7 registrations, 1 to 3 municipalities, 2 to 3 sectors as test data was added. Endpoint accessible without authentication. All existing functionality (events, registrations, brands, admin auth) working correctly with 85% test success rate."
 
 frontend:
   - task: "Statistics Section Component"
