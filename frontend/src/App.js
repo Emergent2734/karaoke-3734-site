@@ -802,6 +802,11 @@ function App() {
     return <Login onLogin={handleLogin} />;
   }
 
+  // Handle direct admin access
+  if (window.location.pathname === '/admin' && !adminToken) {
+    return <Login onLogin={handleLogin} />;
+  }
+
   return (
     <div className="App bg-black text-white min-h-screen">
       {/* Header */}
