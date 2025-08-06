@@ -233,6 +233,31 @@ async def update_payment_status(
     
     return {"message": "Payment status updated"}
 
+# Statistics
+class Statistics(BaseModel):
+    total_registrations: int
+    participating_municipalities: int
+    represented_sectors: int
+
+@api_router.get("/statistics", response_model=Statistics)
+async def get_statistics():
+    # Count total registrations
+    total_registrations = await db.registrations.count_documents({})
+    
+    # Count unique municipalities
+    municipalities = await db.registrations.distinct("municipality")
+    participating_municipalities = len(municipalities)
+    
+    # Count unique sectors
+    sectors = await db.registrations.distinct("sector")
+    represented_sectors = len(sectors)
+    
+    return Statistics(
+        total_registrations=total_registrations,
+        participating_municipalities=participating_municipalities,
+        represented_sectors=represented_sectors
+    )
+
 # Brands
 @api_router.get("/brands", response_model=List[Brand])
 async def get_brands():
