@@ -180,6 +180,9 @@ frontend:
       - working: true
         agent: "main"
         comment: "Added floating 'Inscribirme' button that appears after hero section with smooth scroll"
+      - working: true
+        agent: "main"  
+        comment: "CORRECTED: Fixed floating button to be always visible (sticky) instead of disappearing on scroll up. Maintains maximum conversion potential as requested."
 
   - task: "Enhanced Footer"
     implemented: true
