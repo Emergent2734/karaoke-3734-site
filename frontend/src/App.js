@@ -734,6 +734,20 @@ function App() {
   useEffect(() => {
     fetchEvents();
     fetchBrands();
+    // Check if accessing admin route
+    if (window.location.pathname === '/admin') {
+      setCurrentView("login");
+    }
+    // Handle scroll for floating button
+    const handleScroll = () => {
+      const heroSection = document.getElementById('inicio');
+      if (heroSection) {
+        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+        setShowFloatingButton(window.scrollY > heroBottom);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const fetchEvents = async () => {
