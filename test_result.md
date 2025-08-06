@@ -169,6 +169,30 @@ backend:
         comment: "✅ COMPREHENSIVE TESTING COMPLETED: Statistics API endpoint fully functional. Returns correct JSON structure with total_registrations, participating_municipalities, represented_sectors. Real-time counting verified - counts increased from 4 to 7 registrations, 1 to 3 municipalities, 2 to 3 sectors as test data was added. Endpoint accessible without authentication. All existing functionality (events, registrations, brands, admin auth) working correctly with 85% test success rate."
 
 frontend:
+  - task: "Video Upload Page"
+    implemented: true
+    working: false
+    file: "/app/karaoke-senso-php/upload-video.php"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Created complete video upload interface with drag&drop, file validation, preview, progress tracking, and responsive design"
+
+  - task: "Public Voting Page"
+    implemented: true
+    working: false
+    file: "/app/karaoke-senso-php/voting.php"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Created comprehensive voting interface with 1-5 scale voting, video players, real-time results, modality selection, and detailed statistics display"
+
   - task: "Statistics Section Component"
     implemented: true
     working: true
