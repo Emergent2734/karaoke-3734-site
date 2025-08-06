@@ -14,6 +14,19 @@ import { Mic, Music, Trophy, Users, Calendar, MapPin, Phone, Mail, TrendingUp, A
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+// Logo Component - Ready for official logo integration
+const OfficialLogo = ({ size = "large", className = "" }) => {
+  // TODO: Replace with uploaded official logo
+  // When logo is uploaded, replace the Mic icon with:
+  // <img src="/path/to/official-logo.png" alt="Karaoke Sensō" className={`${sizeClasses} ${className}`} />
+  
+  const sizeClasses = size === "large" ? "w-24 h-24" : size === "medium" ? "w-16 h-16" : "w-8 h-8";
+  
+  return (
+    <Mic className={`${sizeClasses} text-gold ${className}`} />
+  );
+};
+
 // Statistics Component
 const StatisticsSection = () => {
   const [stats, setStats] = useState({
