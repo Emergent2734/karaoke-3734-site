@@ -114,6 +114,13 @@ function createRegistration($db) {
         $stmt->bindParam(':event_id', $input['event_id']);
         
         if ($stmt->execute()) {
+            // Get event name for email notification
+            $query = "SELECT name FROM events WHERE id = :event_id";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':event_id', $input['event_id']);
+            $stmt->execute();
+            $event = $stmt->fetch();
+            
             $registration = [
                 'id' => $id,
                 'full_name' => $input['full_name'],
@@ -123,10 +130,16 @@ function createRegistration($db) {
                 'phone' => $input['phone'],
                 'email' => $input['email'],
                 'event_id' => $input['event_id'],
+                'event_name' => $event['name'] ?? 'Evento no especificado',
                 'payment_status' => 'pendiente',
                 'video_url' => null,
                 'created_at' => date('Y-m-d H:i:s')
             ];
+            
+            // Send email notification to admin
+            $emailNotifier = new EmailNotification();
+            // Note: Gmail credentials need to be configured
+            $emailNotifier->sendNewRegistrationNotification($registration);
             
             jsonResponse($registration, 201);
         } else {
