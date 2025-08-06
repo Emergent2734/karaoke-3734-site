@@ -915,7 +915,9 @@ function App() {
       </section>
 
       {/* Contest Structure Section */}
-      <ContestStructureSection />
+      <section id="estructura">
+        <ContestStructureSection />
+      </section>
 
       {/* Bases Section */}
       <section id="bases" className="py-20 bg-gradient-to-r from-gray-900 to-black">
