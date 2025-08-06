@@ -849,8 +849,8 @@ function App() {
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 text-center px-4">
           <div className="mb-8">
-            {/* TODO: Replace with official logo when uploaded */}
-            <Mic className="w-24 h-24 text-gold mx-auto mb-4 animate-pulse" />
+            {/* Official Logo - Main Hero Section */}
+            <OfficialLogo size="large" className="mx-auto mb-4 animate-pulse" />
             <h1 className="text-6xl md:text-8xl font-bold text-gold mb-4 font-orbitron">
               KARAOKE SENSŌ
             </h1>
