@@ -815,7 +815,7 @@ function App() {
       <header className="fixed top-0 w-full bg-black/95 backdrop-blur-sm border-b border-gold/20 z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-2">
-            <Mic className="w-8 h-8 text-gold" />
+            <OfficialLogo size="small" />
             <h1 className="text-2xl font-bold text-gold">Karaoke Sensō</h1>
           </div>
           <nav className="hidden md:flex space-x-6">
