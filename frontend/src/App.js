@@ -800,14 +800,10 @@ function App() {
           <nav className="hidden md:flex space-x-6">
             <a href="#inicio" className="text-gray-300 hover:text-gold transition-colors">Inicio</a>
             <a href="#registro" className="text-gray-300 hover:text-gold transition-colors">Registro</a>
+            <a href="#estructura" className="text-gray-300 hover:text-gold transition-colors">Estructura</a>
             <a href="#bases" className="text-gray-300 hover:text-gold transition-colors">Bases</a>
+            <a href="#fechas" className="text-gray-300 hover:text-gold transition-colors">Fechas</a>
             <a href="#contacto" className="text-gray-300 hover:text-gold transition-colors">Contacto</a>
-            <button 
-              onClick={() => setCurrentView("login")}
-              className="text-gold hover:text-gold/80 transition-colors"
-            >
-              Admin
-            </button>
           </nav>
         </div>
       </header>
