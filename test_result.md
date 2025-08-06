@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: Enhance Karaoke Sensō website with multiple improvements including logo integration, new sections, statistics, sponsor carousel, and philosophy section.
+user_problem_statement: Phase 2 - Implement public voting system (1-5 scale), video upload functionality for participants, and admin email notifications. Features include vote control by IP+session, 50MB video limit with local storage, and Gmail SMTP integration.
 
 backend:
   - task: "Statistics API endpoint"
