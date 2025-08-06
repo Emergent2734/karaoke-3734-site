@@ -829,11 +829,22 @@ function App() {
         </div>
       )}
 
+      {/* Floating Registration Button */}
+      {showFloatingButton && (
+        <button
+          onClick={() => document.getElementById('registro').scrollIntoView({ behavior: 'smooth' })}
+          className="fixed bottom-6 right-6 bg-gold hover:bg-gold/80 text-black font-bold px-6 py-3 rounded-full shadow-lg z-40 animate-pulse hover:animate-none transition-all duration-300 hover:scale-105"
+        >
+          ¡Inscribirme!
+        </button>
+      )}
+
       {/* Hero Section */}
       <section id="inicio" className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-black to-gray-900">
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 text-center px-4">
           <div className="mb-8">
+            {/* TODO: Replace with official logo when uploaded */}
             <Mic className="w-24 h-24 text-gold mx-auto mb-4 animate-pulse" />
             <h1 className="text-6xl md:text-8xl font-bold text-gold mb-4 font-orbitron">
               KARAOKE SENSŌ
@@ -879,6 +890,12 @@ function App() {
         </div>
       </section>
 
+      {/* Statistics Section */}
+      <StatisticsSection />
+
+      {/* Philosophy Section */}
+      <PhilosophySection />
+
       {/* Registration Section */}
       <section id="registro" className="py-20 bg-black">
         <div className="container mx-auto px-4">
@@ -891,6 +908,9 @@ function App() {
           <RegistrationForm events={events} onSuccess={showMessage} />
         </div>
       </section>
+
+      {/* Contest Structure Section */}
+      <ContestStructureSection />
 
       {/* Bases Section */}
       <section id="bases" className="py-20 bg-gradient-to-r from-gray-900 to-black">
@@ -932,7 +952,7 @@ function App() {
 
       {/* Events Section */}
       {events.length > 0 && (
-        <section className="py-20 bg-black">
+        <section id="fechas" className="py-20 bg-black">
           <div className="container mx-auto px-4">
             <h2 className="text-4xl font-bold text-gold text-center mb-12">Próximas Fechas</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -984,11 +1004,36 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 py-8">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-gray-400">
-            © 2025 Karaoke Sensō. Con el apoyo de PVA, Impactos Digitales, Club de Leones Querétaro.
-          </p>
+      <footer className="bg-gray-900 py-12">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-gold mb-4">Karaoke Sensō 2025</h3>
+              <p className="text-gray-400 mb-6">
+                © 2025 Karaoke Sensō. Con el apoyo de PVA, Impactos Digitales, Club de Leones Querétaro, Radio UAQ y CIJ.
+              </p>
+            </div>
+            
+            <div className="border-t border-gray-700 pt-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-500">
+                <div className="text-center md:text-left">
+                  <h4 className="text-gold font-semibold mb-2">Legal</h4>
+                  <p>Aviso de Privacidad</p>
+                  <p>Términos y Condiciones</p>
+                </div>
+                <div className="text-center">
+                  <h4 className="text-gold font-semibold mb-2">Organización</h4>
+                  <p>Coordinación General</p>
+                  <p>Comité Técnico</p>
+                </div>
+                <div className="text-center md:text-right">
+                  <h4 className="text-gold font-semibold mb-2">Contacto</h4>
+                  <p>coordinacion@karaokesenso.com</p>
+                  <p>+52 442 123 4567</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
