@@ -125,9 +125,7 @@ function uploadVideo($db) {
         $stmt->bindParam(':id', $registration_id);
         $stmt->execute();
         
-        // TODO: Send email notification to admin
-        // This will be implemented when we add email functionality
-        
+        // Send email notification to admin
         $video_data = [
             'id' => $video_id,
             'registration_id' => $registration_id,
@@ -138,6 +136,9 @@ function uploadVideo($db) {
             'upload_status' => 'uploaded',
             'uploaded_at' => date('Y-m-d H:i:s')
         ];
+        
+        $emailNotifier = new EmailNotification();
+        $emailNotifier->sendVideoUploadNotification($video_data);
         
         jsonResponse($video_data, 201);
         
