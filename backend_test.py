@@ -4,7 +4,7 @@ import json
 from datetime import datetime, timedelta
 
 class KaraokeAPITester:
-    def __init__(self, base_url="https://c71c227c-1075-4350-aa45-802abeed9cac.preview.emergentagent.com"):
+    def __init__(self, base_url="https://7fd1a79b-09cd-4f7a-a9ac-4c94c80f68c1.preview.emergentagent.com"):
         self.base_url = base_url
         self.api_url = f"{base_url}/api"
         self.token = None
