@@ -14,6 +14,240 @@ import { Mic, Music, Trophy, Users, Calendar, MapPin, Phone, Mail, TrendingUp, A
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+// Statistics Component
+const StatisticsSection = () => {
+  const [stats, setStats] = useState({
+    total_registrations: 0,
+    participating_municipalities: 0,
+    represented_sectors: 0
+  });
+
+  useEffect(() => {
+    fetchStatistics();
+  }, []);
+
+  const fetchStatistics = async () => {
+    try {
+      const response = await axios.get(`${API}/statistics`);
+      setStats(response.data);
+    } catch (error) {
+      console.error("Error fetching statistics:", error);
+    }
+  };
+
+  return (
+    <section className="py-16 bg-gradient-to-r from-black via-gray-900 to-black">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h3 className="text-3xl font-bold text-gold mb-4">El Impacto del Certamen</h3>
+          <p className="text-gray-300 max-w-2xl mx-auto">
+            Números que reflejan la pasión y participación de nuestra comunidad
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="text-center p-6 bg-black/50 rounded-lg border border-gold/30">
+            <TrendingUp className="w-12 h-12 text-gold mx-auto mb-4" />
+            <div className="text-4xl font-bold text-gold mb-2">{stats.total_registrations}</div>
+            <div className="text-gray-300">Participantes Inscritos</div>
+          </div>
+          <div className="text-center p-6 bg-black/50 rounded-lg border border-gold/30">
+            <MapPin className="w-12 h-12 text-gold mx-auto mb-4" />
+            <div className="text-4xl font-bold text-gold mb-2">{stats.participating_municipalities}</div>
+            <div className="text-gray-300">Municipios Representados</div>
+          </div>
+          <div className="text-center p-6 bg-black/50 rounded-lg border border-gold/30">
+            <Users className="w-12 h-12 text-gold mx-auto mb-4" />
+            <div className="text-4xl font-bold text-gold mb-2">{stats.represented_sectors}</div>
+            <div className="text-gray-300">Sectores Participando</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Contest Structure Component
+const ContestStructureSection = () => {
+  const phases = [
+    {
+      name: "KOE SAN",
+      description: "Representante inicial",
+      detail: "Primera fase donde cada participante demuestra su talento inicial"
+    },
+    {
+      name: "KOE SAI", 
+      description: "Representante de sede",
+      detail: "Los mejores de cada sede compiten por representar su ubicación"
+    },
+    {
+      name: "TSUKAMU KOE",
+      description: "Representante de ciudad", 
+      detail: "La gran final donde se elige al representante de toda la ciudad"
+    }
+  ];
+
+  const criteria = [
+    "Mensaje y conexión emocional",
+    "Interpretación y expresión artística", 
+    "Conexión genuina con el público",
+    "Calidad vocal y afinación",
+    "Presencia escénica",
+    "Originalidad en la presentación"
+  ];
+
+  const prizes = [
+    "Producción musical profesional",
+    "Playera oficial del certamen",
+    "Presentación en medios locales",
+    "Reconocimiento público oficial",
+    "Oportunidades de colaboración artística"
+  ];
+
+  return (
+    <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+      <div className="container mx-auto px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-gold text-center mb-4">Estructura del Certamen</h2>
+          <p className="text-xl text-gray-300 text-center max-w-3xl mx-auto mb-12">
+            Un sistema de competencia diseñado para descubrir y potenciar el verdadero talento artístico
+          </p>
+
+          {/* Phases */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-gold mb-8 text-center">Fases del Evento</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {phases.map((phase, index) => (
+                <Card key={phase.name} className="bg-black/80 border-gold/30 text-center">
+                  <CardContent className="p-6">
+                    <div className="text-3xl font-bold text-gold mb-2">{index + 1}</div>
+                    <h4 className="text-xl font-bold text-gold mb-2">{phase.name}</h4>
+                    <p className="text-white font-semibold mb-3">{phase.description}</p>
+                    <p className="text-gray-300 text-sm">{phase.detail}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          {/* Voting and Criteria */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Voting Modality */}
+            <Card className="bg-black/80 border-gold/30">
+              <CardHeader>
+                <CardTitle className="text-gold flex items-center">
+                  <Award className="w-6 h-6 mr-2" />
+                  Modalidad de Votación
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-gray-300">
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-gold rounded-full mt-2 flex-shrink-0"></div>
+                    <div>
+                      <h5 className="font-semibold text-white">Votación Presencial</h5>
+                      <p className="text-sm">El público presente en cada sede participa en la evaluación directa</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-gold rounded-full mt-2 flex-shrink-0"></div>
+                    <div>
+                      <h5 className="font-semibold text-white">Votación Virtual</h5>
+                      <p className="text-sm">Transmisión en vivo permite participación de la comunidad extendida</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Evaluation Criteria */}
+            <Card className="bg-black/80 border-gold/30">
+              <CardHeader>
+                <CardTitle className="text-gold flex items-center">
+                  <Target className="w-6 h-6 mr-2" />
+                  Criterios de Evaluación
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-gray-300">
+                <ul className="space-y-2">
+                  {criteria.map((criterion, index) => (
+                    <li key={index} className="flex items-center space-x-2">
+                      <div className="w-1.5 h-1.5 bg-gold rounded-full"></div>
+                      <span className="text-sm">{criterion}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Prizes */}
+          <Card className="mt-12 bg-black/80 border-gold/30">
+            <CardHeader>
+              <CardTitle className="text-gold text-center flex items-center justify-center">
+                <Trophy className="w-6 h-6 mr-2" />
+                Premios y Reconocimientos
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {prizes.map((prize, index) => (
+                  <div key={index} className="flex items-center space-x-3 p-3 bg-gray-900/50 rounded-lg">
+                    <Award className="w-5 h-5 text-gold flex-shrink-0" />
+                    <span className="text-gray-300 text-sm">{prize}</span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Philosophy/Manifesto Section
+const PhilosophySection = () => {
+  return (
+    <section className="py-20 bg-gradient-to-r from-gray-900 via-black to-gray-900">
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="mb-8">
+            <Heart className="w-16 h-16 text-gold mx-auto mb-6 animate-pulse" />
+            <h2 className="text-4xl md:text-5xl font-bold text-gold mb-6 font-orbitron">
+              MANIFIESTO SENSŌ
+            </h2>
+          </div>
+          
+          <div className="bg-black/60 p-8 md:p-12 rounded-lg border border-gold/30 backdrop-blur-sm">
+            <blockquote className="text-2xl md:text-3xl text-white font-light leading-relaxed mb-8">
+              "Una declaración de guerra contra la vulgaridad, 
+              <br />
+              la insensibilidad y la indiferencia.
+              <br />
+              <span className="text-gold font-bold">Solo un arma: tu voz.</span>"
+            </blockquote>
+            
+            <div className="space-y-6 text-lg text-gray-300">
+              <p>
+                En un mundo saturado de ruido vacío, Karaoke Sensō emerge como un grito de autenticidad. 
+                No buscamos solo voces que canten, sino almas que se atrevan a sentir.
+              </p>
+              <p>
+                Cada participante lleva consigo una historia, una emoción, una verdad que merece ser escuchada. 
+                Aquí, el egoísmo se transforma en empatía, y las voces se convierten en puentes 
+                que conectan corazones.
+              </p>
+              <p className="text-gold font-semibold">
+                Esta es nuestra revolución silenciosa. Esta es nuestra guerra contra lo superficial.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // Brand Slider Component
 const BrandSlider = ({ brands }) => {
   return (
